@@ -3,32 +3,64 @@ const posts = require('../data/posts');
 
 //index
 function index(req, res) {
-  res.send("index");
+  res.send(posts);
 }
 
 //show
 function show(req, res) {
-  res.send("show");
+  const postSlug = req.params.slug;
+
+  const post = posts.find(post => post.slug === postSlug);
+
+  if (!post) {
+    return res.status(404).json({
+      error: "404 Not Found",
+      message: "Post not found"
+    });
+  }
+
+  res.json(post);
 }
 
 //store
 function store(req, res) {
-  res.send("store");
+  res.send("Add a new post");
 }
 
 //update
 function update(req, res) {
-  res.send("update");
+  res.send("Full update post");
 }
 
 //modify
 function modify(req, res) {
-  res.send("modify");
+  res.send("Partial update post");
 }
 
 //destroy
 function destroy(req, res) {
-  res.send("destroy");
+
+  //get dynamic slug
+  const postSlug = req.params.slug;
+  //try to find post with given slug
+  const post = posts.find(post => post.slug === postSlug);
+
+  //if post not found
+  if (!post) {
+    //error
+    return res.status(404).json({
+      error: "404 Not Found",
+      message: "Post Not Found"
+    });
+  }
+
+  //else remove the post
+  posts.splice(posts.indexOf(post), 1);
+  //print length in console to check the result
+  console.log(posts);
+
+  //send 204 status
+  res.sendStatus(204);
 }
 
 module.exports = {
