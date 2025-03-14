@@ -3,7 +3,24 @@ const posts = require('../data/posts');
 
 //index
 function index(req, res) {
-  res.send(posts);
+
+  //get query tag inserted
+  const queryTag = req.query.tag;
+  let filteredPost = posts;
+
+  //check if tag exist
+  if (!queryTag) {
+
+    //return all posts
+    return res.json(filteredPosts);
+  }
+
+  //else filter posts
+  filteredPosts = posts.filter(post => post.tags.includes(queryTag));
+
+  //return result
+  res.json(filteredPosts);
+
 }
 
 //show
