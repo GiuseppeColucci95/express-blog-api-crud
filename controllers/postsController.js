@@ -70,12 +70,58 @@ function store(req, res) {
 
 //update
 function update(req, res) {
-  res.send("Full update post");
+
+  //get the slug to modify
+  const slugToModify = req.params.slug;
+  console.log(slugToModify);
+
+  //find the post to modify
+  const postToModify = posts.find(post => post.slug === slugToModify);
+
+  //check if post to modify exist and handle the error
+  if (!postToModify) {
+    return res.status(404).json({
+      error: "404 NOT FOUND",
+      message: "Post not found"
+    });
+  }
+
+  //modify the post
+  postToModify.title = req.body.title;
+  postToModify.content = req.body.content;
+  postToModify.image = req.body.image;
+  postToModify.tags = req.body.tags;
+  postToModify.slug = req.body.title.replaceAll(" ", "-");
+
+  //return the modified post in console and in json
+  console.log(postToModify);
+  res.json(postToModify);
 }
 
 //modify
 function modify(req, res) {
-  res.send("Partial update post");
+
+  //get the slug to modify
+  const slugToModify = req.params.slug;
+  console.log(slugToModify);
+
+  //find the post to modify
+  const postToModify = posts.find(post => post.slug === slugToModify);
+
+  //check if post to modify exist and handle the error
+  if (!postToModify) {
+    return res.status(404).json({
+      error: "404 NOT FOUND",
+      message: "Post not found"
+    });
+  }
+
+  //modify the post
+  postToModify.tags = req.body.tags;
+
+  //return the modified post in console and in json
+  console.log(postToModify);
+  res.json(postToModify);
 }
 
 //destroy
