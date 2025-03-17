@@ -20,3 +20,6 @@ app.get('/', (req, res) => {
 
 //posts middleware
 app.use('/posts', postsRouter);
+
+//static assets
+app.use(express.static('public'));
