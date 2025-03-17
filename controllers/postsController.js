@@ -47,7 +47,7 @@ function show(req, res) {
 function store(req, res) {
 
   //create a new slug from the given title
-  newSlug = req.body.title.replaceAll(" ", "-");
+  newSlug = req.body.title.replaceAll(" ", "-").toLowerCase();
 
   //create a new object 
   const newPost = {
@@ -91,7 +91,7 @@ function update(req, res) {
   postToModify.content = req.body.content;
   postToModify.image = req.body.image;
   postToModify.tags = req.body.tags;
-  postToModify.slug = req.body.title.replaceAll(" ", "-");
+  postToModify.slug = req.body.title.replaceAll(" ", "-").toLowerCase();
 
   //return the modified post in console and in json
   console.log(postToModify);
