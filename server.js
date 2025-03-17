@@ -21,5 +21,8 @@ app.get('/', (req, res) => {
 //static assets
 app.use(express.static('public'));
 
+//add body parser
+app.use(express.json());
+
 //posts middleware
 app.use('/posts', postsRouter);

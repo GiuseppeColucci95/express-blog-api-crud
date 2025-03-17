@@ -45,6 +45,10 @@ function show(req, res) {
 
 //store
 function store(req, res) {
+
+  console.log(req.body);
+
+
   res.send("Add a new post");
 }
 
