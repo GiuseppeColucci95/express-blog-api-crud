@@ -6,7 +6,7 @@ function index(req, res) {
 
   //get query tag inserted
   const queryTag = req.query.tag;
-  let filteredPost = posts;
+  let filteredPosts = posts;
 
   //check if tag exist
   if (!queryTag) {
@@ -46,10 +46,26 @@ function show(req, res) {
 //store
 function store(req, res) {
 
-  console.log(req.body);
+  //create a new slug from the given title
+  newSlug = req.body.title.replaceAll(" ", "-");
 
+  //create a new object 
+  const newPost = {
+    title: req.body.title,
+    slug: newSlug,
+    content: req.body.content,
+    image: req.body.image,
+    tags: req.body.tags
+  };
 
-  res.send("Add a new post");
+  //insert the new object in the array
+  posts.push(newPost);
+
+  //print in console the new object
+  console.log(newPost);
+
+  //set status and return the object just created in json format
+  res.status(201).json(newPost);
 }
 
 //update
