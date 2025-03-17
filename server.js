@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
   res.send("Welcome to our Blog Server!");
 });
 
-//posts middleware
-app.use('/posts', postsRouter);
-
 //static assets
 app.use(express.static('public'));
+
+//posts middleware
+app.use('/posts', postsRouter);
