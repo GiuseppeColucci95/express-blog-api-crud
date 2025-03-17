@@ -3,16 +3,37 @@ const posts = require('../data/posts');
 
 //index
 function index(req, res) {
-  res.send(posts);
+
+  //get query tag inserted
+  const queryTag = req.query.tag;
+  let filteredPost = posts;
+
+  //check if tag exist
+  if (!queryTag) {
+
+    //return all posts
+    return res.json(filteredPosts);
+  }
+
+  //else filter posts
+  filteredPosts = posts.filter(post => post.tags.includes(queryTag));
+
+  //return result
+  res.json(filteredPosts);
+
 }
 
 //show
 function show(req, res) {
+  //get dynamic slug
   const postSlug = req.params.slug;
 
+  //find interested post
   const post = posts.find(post => post.slug === postSlug);
 
+  //check if post got found
   if (!post) {
+    //error (bonus)
     return res.status(404).json({
       error: "404 Not Found",
       message: "Post not found"
@@ -47,7 +68,7 @@ function destroy(req, res) {
 
   //if post not found
   if (!post) {
-    //error
+    //error (bonus)
     return res.status(404).json({
       error: "404 Not Found",
       message: "Post Not Found"
@@ -63,6 +84,7 @@ function destroy(req, res) {
   res.sendStatus(204);
 }
 
+//exports controller functions
 module.exports = {
   index, show, store, update, modify, destroy
 };
