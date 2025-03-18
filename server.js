@@ -14,6 +14,12 @@ const serverError = require('./middlewares/serverError');
 //import 404 server error middleware
 const notFoundError = require('./middlewares/error-404');
 
+//import function to log time middleware
+const timeMiddleware = require('./middlewares/timeMiddleware');
+
+//add time middleware
+app.use('/', timeMiddleware);
+
 //start server listening
 app.listen(port, () => {
   console.log(`🟢 Server start running on port http://localhost:${port}`);
