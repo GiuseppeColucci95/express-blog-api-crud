@@ -8,6 +8,12 @@ const port = 3000;
 //import posts router
 const postsRouter = require('./routers/postsRouter');
 
+//import server error middleware
+const serverError = require('./middlewares/serverError');
+
+//import 404 server error middleware
+const notFoundError = require('./middlewares/error-404');
+
 //start server listening
 app.listen(port, () => {
   console.log(`🟢 Server start running on port http://localhost:${port}`);
@@ -15,6 +21,9 @@ app.listen(port, () => {
 
 //home route
 app.get('/', (req, res) => {
+
+  //throw an error volountarily
+  //app.daje();
   res.send("Welcome to our Blog Server!");
 });
 
@@ -26,3 +35,9 @@ app.use(express.json());
 
 //posts middleware
 app.use('/posts', postsRouter);
+
+//500 server error
+app.use(serverError);
+
+//404 error
+app.use(notFoundError);
