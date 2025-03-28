@@ -2,8 +2,11 @@
 const express = require('express');
 //create an instance of express
 const app = express();
+//import cors
+const cors = require('cors');
 //create server port
 const port = 3000;
+
 
 //import posts router
 const postsRouter = require('./routers/postsRouter');
@@ -19,6 +22,11 @@ const timeMiddleware = require('./middlewares/timeMiddleware');
 
 //add time middleware
 app.use('/', timeMiddleware);
+
+//add cors middleware
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 //start server listening
 app.listen(port, () => {
